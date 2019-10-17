@@ -1,0 +1,19 @@
+<h1 mat-dialog-title>Hi!</h1>
+<div mat-dialog-content>
+  <form id = "image-create-form">
+    <mat-form-field>
+      <input matInput type = "text" placeholder="Enter the picture title" [formControl]="imageTitleControl">
+    </mat-form-field>
+    
+    <mat-form-field>
+        <input matInput type = "text"
+          placeholder = "Enter the picture description "
+          [formControl] = "imageDescriptionControl"
+        >
+      </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="handleCloseClick()">Close</button>
+  <button mat-button [mat-dialog-close]="data.description" cdkFocusInitial>Ok</button>
+</div>

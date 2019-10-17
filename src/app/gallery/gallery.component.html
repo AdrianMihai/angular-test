@@ -1,0 +1,37 @@
+<div id = "gallery-container">
+    <h1 class = "title">Your gallery</h1>
+
+    <div class = "images">
+        <h2 class = "no-images-text" *ngIf = "imageService.isEmpty()">You haven't added any images yet.</h2>
+
+        <div class = "image-container">
+            <img src = "/assets/img/the_void_of_nothingness.png" />
+        </div>
+
+        <div class = "image-container">
+            <img src = "/assets/img/cloudy_sky.jpg" />
+        </div>
+
+        <div class = "image-container">
+            <img src = "/assets/img/nebula_14.jpg" />
+        </div>
+        
+        <div class = "image-container">
+            <img src = "/assets/img/antyesti.jpg" />
+        </div>
+    </div>
+    <!-- <mat-grid-list cols = "1" rowHeight = "3:1">
+        
+        <mat-grid-tile >
+            
+        </mat-grid-tile>
+    </mat-grid-list> -->
+    
+    <div class = add-image-button>
+        <button mat-fab (click) = "openImageForm()">
+            <i class="material-icons">
+                add
+            </i>
+        </button>
+    </div>
+</div> 
