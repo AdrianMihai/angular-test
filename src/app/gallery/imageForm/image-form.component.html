@@ -1,19 +1,28 @@
-<h1 mat-dialog-title>Hi!</h1>
-<div mat-dialog-content>
-  <form id = "image-create-form">
-    <mat-form-field>
-      <input matInput type = "text" placeholder="Enter the picture title" [formControl]="imageTitleControl">
-    </mat-form-field>
-    
-    <mat-form-field>
-        <input matInput type = "text"
-          placeholder = "Enter the picture description "
-          [formControl] = "imageDescriptionControl"
-        >
+<div id="image-dialog">
+  <h1 mat-dialog-title>Add an image to your gallery</h1>
+  <div mat-dialog-content>
+    <form id="image-create-form" [formGroup]="imageForm">
+      <mat-form-field>
+        <input matInput type="text" placeholder="Enter the picture title" formControlName = "imageTitle" />
       </mat-form-field>
-  </form>
-</div>
-<div mat-dialog-actions>
-  <button mat-button (click)="handleCloseClick()">Close</button>
-  <button mat-button [mat-dialog-close]="data.description" cdkFocusInitial>Ok</button>
+
+      <mat-form-field>
+        <textarea matInput enabled = "true" type="text" placeholder="Enter the picture description"
+          formControlName = "imageDescription">
+        </textarea>
+      </mat-form-field>
+
+      <div class="image-input">
+        <input type="file" name="image-input" (change)="handleImageFileChange($event)"/>
+        <img *ngIf="data.url" class="loaded-image" [src]="data.url" />
+      </div>
+
+    </form>
+  </div>
+  <div mat-dialog-actions class="image-add-dialog-actions">
+    <button mat-button (click)="handleCloseClick()">Close</button>
+    <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Add</button>
+  </div>
+
+  <loading-overlay *ngIf="isLoading"></loading-overlay>
 </div>

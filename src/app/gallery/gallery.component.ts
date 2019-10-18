@@ -13,20 +13,21 @@ export class GalleryComponent {
     constructor(private readonly imageService: ImageService,
                 public imageForm: MatDialog) {
         console.log(imageService);
-
-        imageService.addImage(new Image('some url'));
     }
 
     openImageForm(): void {
-        let image: FormImageData = {description: ""};
+        let image: FormImageData = {description: "", url: "", title:""};
 
         const dialogRef = this.imageForm.open(ImageForm, {
             id: 'imageFormDialog',
-            data: image
+            data: image,
         });
 
         dialogRef.afterClosed().subscribe(result => {
             console.log(result);
+            this.imageService.addImage(
+                new Image(result.title, result.description, result.url)
+            );
         });
     }
 }

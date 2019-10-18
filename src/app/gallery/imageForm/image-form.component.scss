@@ -1,0 +1,17 @@
+#image-dialog {
+    position: relative;
+}
+
+#image-create-form > *{
+    width: 100%;
+    text-align: center;
+}
+
+.image-add-dialog-actions {
+    justify-content: flex-end;
+}
+
+#image-create-form .loaded-image {
+    max-width: 100%;
+    max-height: 100%;
+}

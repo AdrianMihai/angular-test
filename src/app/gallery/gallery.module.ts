@@ -7,16 +7,22 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { ImageForm } from './imageForm/image-form.component';
 import { MatDialogModule } from '@angular/material/dialog';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatInputModule} from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { LoadingOverlay } from 'app/loading-overlay/loading-overlay.component';
+import LocalStorageRepository from 'app/utilities/LocalStorageRepository';
 
 @NgModule({
-    declarations: [GalleryComponent, ImageForm],
-    imports: [ MatGridListModule, CommonModule, MatButtonModule, MatIconModule, MatDialogModule,
-        MatFormFieldModule,  MatInputModule, FormsModule, ReactiveFormsModule ],
-    entryComponents: [ ImageForm, GalleryComponent ],
-    providers: [ImageService]
+    declarations: [GalleryComponent, ImageForm, LoadingOverlay],
+    imports: [
+        CommonModule, FormsModule, ReactiveFormsModule,
+        MatGridListModule, MatButtonModule, MatIconModule, MatDialogModule, MatFormFieldModule, MatInputModule,
+        MatProgressSpinnerModule
+    ],
+    entryComponents: [ImageForm, GalleryComponent, LoadingOverlay],
+    providers: [ImageService ]
 })
 export class GalleryModule {
 
