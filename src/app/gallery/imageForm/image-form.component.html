@@ -4,6 +4,9 @@
     <form id="image-create-form" [formGroup]="imageForm">
       <mat-form-field>
         <input matInput type="text" placeholder="Enter the picture title" formControlName = "imageTitle" />
+        <mat-error *ngIf="imageForm.get('imageTitle').hasError('required')">
+          The picture title cannot be empty.
+        </mat-error>
       </mat-form-field>
 
       <mat-form-field>
@@ -20,8 +23,8 @@
     </form>
   </div>
   <div mat-dialog-actions class="image-add-dialog-actions">
-    <button mat-button (click)="handleCloseClick()">Close</button>
-    <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Add</button>
+    <button mat-stroked-button (click) = "handleCloseClick()">Close</button>
+    <button mat-stroked-button color = "primary" (click) = "handleFormSubmit()" cdkFocusInitial>Add</button>
   </div>
 
   <loading-overlay *ngIf="isLoading"></loading-overlay>

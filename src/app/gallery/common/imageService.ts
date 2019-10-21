@@ -23,4 +23,14 @@ export class ImageService {
         image.setId(this.getNextAvailableId());
         this.data.push(image);
     }
+
+    deleteImage(imgId: number): void {
+        const imgIndex = this.data.findIndex(elem => elem.id == imgId);
+
+        this.data.splice(imgIndex, 1);
+    }
+
+    getImage(index: number): Image {
+        return this.data[index];
+    }
 }

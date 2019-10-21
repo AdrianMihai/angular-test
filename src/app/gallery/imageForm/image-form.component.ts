@@ -18,14 +18,14 @@ export class ImageForm implements OnInit {
     imageForm: FormGroup;
 
     constructor(
-        private formBuilder: FormBuilder,
         public dialogRef: MatDialogRef<ImageForm>,
         @Inject(MAT_DIALOG_DATA) public data: FormImageData,
     ) {
         this.imageForm = new FormGroup({
-            imageTitle: new FormControl(this.data.title),
+            imageTitle: new FormControl(this.data.title, Validators.required),
             imageDescription: new FormControl(this.data.description)
         });
+
     }
 
     ngOnInit(): void {
@@ -34,6 +34,10 @@ export class ImageForm implements OnInit {
             this.data.description = val.imageDescription;
         });
         
+    }
+
+    isFormValid(): boolean {
+        return !this.imageForm.invalid && this.data.url;
     }
 
     handleCloseClick(): void {
@@ -45,7 +49,7 @@ export class ImageForm implements OnInit {
         console.log(files);
 
         const fileReader = new FileReader();
-        fileReader.onload = (e) => {
+        fileReader.onload = (e: any) => {
             this.isLoading = false;
 
             const imageUrl = e.target.result;
@@ -54,6 +58,13 @@ export class ImageForm implements OnInit {
 
         fileReader.readAsDataURL(files[0]);
         this.isLoading = true;
+    }
+
+    handleFormSubmit() {
+
+        if (this.isFormValid()) {
+            this.dialogRef.close(this.data);
+        }
     }
     
 }

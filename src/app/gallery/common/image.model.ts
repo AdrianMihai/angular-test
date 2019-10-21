@@ -1,9 +1,9 @@
 
 export class Image {
-    private id: number;
-    private title: string;
-    private description: string;
-    private url: string;
+    public id: number;
+    public title: string;
+    public description: string;
+    public url: string;
 
     constructor(imgTitle: string, imgDescription: string, imgUrl: string) {
         this.title = imgTitle;

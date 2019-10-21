@@ -3,10 +3,13 @@
 
     <div class = "images">
         <h2 class = "no-images-text" *ngIf = "imageService.isEmpty()">You haven't added any images yet.</h2>
-
+            
         <div class = "image-container" *ngFor="let image of imageService.images; index as i" (click) = "imageClickHandler(i)">
+            <span class = "helper"></span>
             <img [src] = "image.url" />
+            <h2 class = "image-title"> {{image.title}}</h2>
         </div>
+        
     </div>
     <!-- <mat-grid-list cols = "1" rowHeight = "3:1">
         
@@ -15,7 +18,7 @@
         </mat-grid-tile>
     </mat-grid-list> -->
     
-    <div class = add-image-button>
+    <div class = "add-image-button">
         <button mat-fab (click) = "openImageForm()">
             <i class="material-icons">
                 add

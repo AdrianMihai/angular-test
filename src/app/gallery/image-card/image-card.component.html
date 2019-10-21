@@ -1,0 +1,24 @@
+<div id="image-card">
+
+    <mat-card class="example-card">
+        <mat-card-header>
+            <mat-card-title>{{data.title}}</mat-card-title>
+        </mat-card-header>
+
+        <img mat-card-image [src] = "data.url" alt="Selected photo">
+
+        <mat-card-content>
+            <h3>{{data.description}}</h3>
+        </mat-card-content>
+
+        <mat-card-actions class = "actions">
+            <button mat-raised-button color = "error" (click) = "handleDeleteClick(data.id)">
+                Delete
+            </button>
+            <button mat-raised-button (click) = "handleCloseClick()">Close</button>
+        </mat-card-actions>
+
+    </mat-card>
+
+    <loading-overlay *ngIf="isLoading"></loading-overlay>
+</div>
