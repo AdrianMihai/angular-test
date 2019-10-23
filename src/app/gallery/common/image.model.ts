@@ -1,3 +1,7 @@
+export interface ImageUserData {
+    title: string;
+    description: string;
+}
 
 export class Image {
     public id: number;
@@ -13,5 +17,10 @@ export class Image {
 
     setId(imgId: number) {
         this.id = imgId;
+    }
+    
+    updateImageData(imageData: ImageUserData) {
+        this.title = imageData.title;
+        this.description = imageData.description;
     }
 }

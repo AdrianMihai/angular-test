@@ -24,10 +24,15 @@ export default class LocalStorageRepository {
         return true;
     }
 
-    getData() {
+    getData(): Array<any> {
         let stringData = localStorage.getItem(this._key);
+        const jsonData = JSON.parse(stringData);
 
-        return JSON.parse(stringData);
+        if (!jsonData) {
+            return [];
+        }
+
+        return jsonData;
     }
 
     isEmpty() {

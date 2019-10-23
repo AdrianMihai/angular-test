@@ -12,7 +12,6 @@ import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { LoadingOverlay } from 'app/loading-overlay/loading-overlay.component';
-import LocalStorageRepository from 'app/utilities/LocalStorageRepository';
 import { ImageCard } from './image-card/image-card.component';
 import {MatCardModule} from '@angular/material/card';
 

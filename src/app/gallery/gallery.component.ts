@@ -11,9 +11,17 @@ import { ImageCard } from './image-card/image-card.component';
     styleUrls: ['./gallery.component.scss']
 })
 export class GalleryComponent {
+
+    private dialogGeneralConfiguration: object;
+
     constructor(private readonly imageService: ImageService,
                 public dialog: MatDialog,
         ) {
+
+        this.dialogGeneralConfiguration = {
+            panelClass: "gallery-dialog"
+        }
+
         console.log(imageService);
     }
 
@@ -23,12 +31,16 @@ export class GalleryComponent {
         const dialogRef = this.dialog.open(ImageForm, {
             id: 'imageFormDialog',
             data: image,
+            ...this.dialogGeneralConfiguration
         });
 
         dialogRef.afterClosed().subscribe(result => {
-            this.imageService.addImage(
-                new Image(result.title, result.description, result.url)
-            );
+            if (result) {
+                this.imageService.addImage(
+                    new Image(result.title, result.description, result.url)
+                );
+            }
+            
         });
     }
 
@@ -36,7 +48,8 @@ export class GalleryComponent {
         console.log(index);
 
         this.dialog.open(ImageCard, {
-            data: this.imageService.getImage(index)
+            data: this.imageService.getImage(index),
+            ...this.dialogGeneralConfiguration
         });
     }
 }

@@ -1,21 +1,38 @@
 <div id="image-card">
 
-    <mat-card class="example-card">
-        <mat-card-header>
-            <mat-card-title>{{data.title}}</mat-card-title>
+    <mat-card>
+        <mat-card-header mat-dialog-title class = "header">
+            <mat-card-title>
+                {{!isUpdateModeOn ? data.title : ""}}
+                <input type = "text" placeholder = "Title"
+                    #titleInput *ngIf = "isUpdateModeOn" [formControl] = "imageTitle"
+                />
+            </mat-card-title>
+            <button type = "button" mat-icon-button class = "photo-edit-button" 
+                [class.on] = "isUpdateModeOn" (click) = "toggleUpdateMode()">
+                <i class="material-icons">
+                    edit
+                </i>
+            </button>
         </mat-card-header>
 
         <img mat-card-image [src] = "data.url" alt="Selected photo">
 
         <mat-card-content>
-            <h3>{{data.description}}</h3>
+            <h3 *ngIf="!isUpdateModeOn">{{getDescriptionText()}}</h3>
+            <input type = "text" placeholder = "Description" 
+                *ngIf = "isUpdateModeOn" [formControl] = "imageDescription"
+            />
         </mat-card-content>
 
-        <mat-card-actions class = "actions">
-            <button mat-raised-button color = "error" (click) = "handleDeleteClick(data.id)">
+        <mat-card-actions mat-dialog-actions class = "actions">
+            <button *ngIf="!isUpdateModeOn" mat-raised-button color = "error" (click) = "handleDeleteClick(data.id)" >
                 Delete
             </button>
-            <button mat-raised-button (click) = "handleCloseClick()">Close</button>
+            <button *ngIf="isUpdateModeOn" mat-raised-button class = "save-changes-button" (click) = "saveImageDataChanges()" >
+                Save Changes
+            </button>
+            <button mat-raised-button (click) = "handleCloseClick()" cdkFocusInitial>Close</button>
         </mat-card-actions>
 
     </mat-card>

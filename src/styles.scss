@@ -29,4 +29,23 @@ $angular-test-theme: mat-light-theme($angular-test-primary, $angular-test-accent
 /* You can add global styles to this file, and also import other style files */
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; font-family: Corbel; }
+
+.gallery-dialog {
+    max-width: calc(100%  - 1em) !important;
+}
+
+@media (min-width: 768px) {
+
+    .gallery-dialog {
+        max-width: 75% !important;
+    }
+}
+
+@media (min-width: 1024px) {
+
+
+    .gallery-dialog {
+        max-width: 60% !important;
+    }
+}

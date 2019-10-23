@@ -1,9 +1,44 @@
+@import '~@angular/material/theming';
+
 #image-card {
+    margin: -24px;
+
+    input {
+        width: 100%;
+        border-width: 0px;
+        font-weight: 600;
+        font-size: 1rem;
+    }
+
+    input:focus {
+        outline: none;
+    }
+
+    .header {
+        justify-content: space-between;
+        margin: 0px;
+    }
+
+    .photo-edit-button {
+        top: - 0.6em;
+        color: mat-color($mat-orange, A700);
+        transition: all .1s ease-in-out;
+    }
+
+    .photo-edit-button.on {
+        background-color: mat-color($mat-orange, A700);
+        color: whitesmoke;
+    }
+
     .actions {
         text-align: right;
 
         button:first-child {
             display: inline-block;
+        }
+
+        .save-changes-button {
+            color: mat-color($mat-green, 700);
         }
     }
 }

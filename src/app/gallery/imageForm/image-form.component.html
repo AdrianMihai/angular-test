@@ -1,26 +1,45 @@
 <div id="image-dialog">
   <h1 mat-dialog-title>Add an image to your gallery</h1>
-  <div mat-dialog-content>
+  <div mat-dialog-content class = "content">
     <form id="image-create-form" [formGroup]="imageForm">
-      <mat-form-field>
-        <input matInput type="text" placeholder="Enter the picture title" formControlName = "imageTitle" />
+
+        <div class="image-input">
+          <input #imageInput type="file" name="image-input" (change)="handleImageFileChange($event)"/>
+  
+          <button type = "button" color = "error"
+                  *ngIf="isImageLoaded()" mat-raised-button (click) = "removeImage()"
+          >
+            <i class="material-icons">
+              delete_outline
+            </i>
+            Remove image
+          </button>
+          <button type = "button" color = "accent" class = "add-image"
+                  *ngIf="!isImageLoaded()" mat-raised-button (click) = "triggerFileInput()"
+          >
+              <i class="material-icons">
+                  add_photo_alternate
+              </i>
+            Add image
+          </button>
+          
+        </div>
+
+      <mat-form-field class = "form-field">
+        <input matInput type="text" placeholder="Image title" formControlName = "imageTitle" />
         <mat-error *ngIf="imageForm.get('imageTitle').hasError('required')">
           The picture title cannot be empty.
         </mat-error>
       </mat-form-field>
 
-      <mat-form-field>
-        <textarea matInput enabled = "true" type="text" placeholder="Enter the picture description"
+      <mat-form-field class = "form-field">
+        <textarea matInput enabled = "true" type="text" placeholder="Image description"
           formControlName = "imageDescription">
         </textarea>
       </mat-form-field>
 
-      <div class="image-input">
-        <input type="file" name="image-input" (change)="handleImageFileChange($event)"/>
-        <img *ngIf="data.url" class="loaded-image" [src]="data.url" />
-      </div>
-
     </form>
+    <img *ngIf="data.url" class="loaded-image" [src]="data.url" />
   </div>
   <div mat-dialog-actions class="image-add-dialog-actions">
     <button mat-stroked-button (click) = "handleCloseClick()">Close</button>

@@ -1,4 +1,4 @@
-import { Inject, Component, OnInit } from '@angular/core';
+import { Inject, Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
 
@@ -16,7 +16,8 @@ export interface FormImageData {
 export class ImageForm implements OnInit {
     isLoading: boolean = false;
     imageForm: FormGroup;
-
+    @ViewChild('imageInput', {static: false}) imageInput: ElementRef<HTMLElement>;
+    
     constructor(
         public dialogRef: MatDialogRef<ImageForm>,
         @Inject(MAT_DIALOG_DATA) public data: FormImageData,
@@ -34,17 +35,31 @@ export class ImageForm implements OnInit {
             this.data.description = val.imageDescription;
         });
         
+    } 
+
+    isImageLoaded(): boolean {
+        return this.data.url.length > 0;
     }
 
     isFormValid(): boolean {
-        return !this.imageForm.invalid && this.data.url;
+        return !this.imageForm.invalid && this.isImageLoaded();
     }
 
     handleCloseClick(): void {
         this.dialogRef.close();
     }
 
-    handleImageFileChange(event) {
+    triggerFileInput(): void {
+        const elem: HTMLElement = this.imageInput.nativeElement;
+
+        elem.click();
+    }
+
+    removeImage(): void {
+        this.data.url = "";
+    }
+
+    handleImageFileChange(event):void {
         const files = event.target.files;
         console.log(files);
 
