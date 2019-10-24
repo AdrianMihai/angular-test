@@ -3,6 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Image, ImageUserData } from '../common/image.model';
 import { ImageService } from '../common/imageService';
 import { FormControl, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -19,6 +20,7 @@ export class ImageCard {
 
     constructor(
         public dialogRef: MatDialogRef<ImageCard>,
+        private _snackBar: MatSnackBar,
         @Inject(MAT_DIALOG_DATA) public data: Image,
         private readonly imageService: ImageService
     ) {
@@ -39,7 +41,22 @@ export class ImageCard {
     }
 
     handleDeleteClick(imgId: number) {
-        this.imageService.deleteImage(imgId);
+        const deletedImage: Image = this.imageService.deleteImage(imgId);
+
+        this._snackBar.open('Image successfully deleted.', 'Undo',
+            {
+                panelClass: ['custom-snackbar', 'snackbar-success'],
+                duration: 10000
+
+            }
+        );
+
+        this._snackBar._openedSnackBarRef.afterDismissed().subscribe((result) => {
+            if (result.dismissedByAction) {
+                this.imageService.addImage(deletedImage);
+            }
+        });
+
         this.dialogRef.close();
     }
 
@@ -51,9 +68,16 @@ export class ImageCard {
 
         try {
             this.imageService.updateImageData(this.data.id, imageData);
+            this._snackBar.dismiss();
             this.toggleUpdateMode();
         } catch (e) {
-            console.log(e);
+            this._snackBar.open(e.message,'',
+                {
+                    panelClass: ['custom-snackbar', 'snackbar-error'],
+                    duration: 7000
+
+                }
+            );
         }
         
     }

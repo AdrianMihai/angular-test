@@ -13,14 +13,15 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { LoadingOverlay } from 'app/loading-overlay/loading-overlay.component';
 import { ImageCard } from './image-card/image-card.component';
-import {MatCardModule} from '@angular/material/card';
+import { MatCardModule } from '@angular/material/card';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
     declarations: [GalleryComponent, ImageForm, LoadingOverlay, ImageCard],
     imports: [
         CommonModule, FormsModule, ReactiveFormsModule,
         MatGridListModule, MatButtonModule, MatIconModule, MatDialogModule, MatFormFieldModule, MatInputModule,
-        MatProgressSpinnerModule, MatCardModule
+        MatProgressSpinnerModule, MatCardModule, MatSnackBarModule
     ],
     entryComponents: [ImageForm, GalleryComponent, LoadingOverlay, ImageCard],
     providers: [ImageService]

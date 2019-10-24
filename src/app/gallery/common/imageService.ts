@@ -1,6 +1,7 @@
 import { Image, ImageUserData } from './image.model';
 import LocalStorageRepository from 'app/utilities/LocalStorageRepository';
 import { Inject, Injectable } from '@angular/core';
+import ImageValidator from './imageValidator';
 
 @Injectable()
 export class ImageService {
@@ -46,18 +47,26 @@ export class ImageService {
     }
 
     addImage(image: Image): void {
-        image.setId(this.getNextAvailableId());
-        this.data.push(image);
 
-        this.lsRepository.saveData(this.data);
+        if (ImageValidator.isImageValid(image)) {
+            image.setId(this.getNextAvailableId());
+            this.data.push(image);
+
+            this.lsRepository.saveData(this.data);
+        }
+        
     }
 
-    deleteImage(imgId: number): void {
+    deleteImage(imgId: number): Image {
         const imgIndex = this.findImageIndexById(imgId);
+
+        const image = this.data[imgIndex];
 
         this.data.splice(imgIndex, 1);
 
         this.lsRepository.saveData(this.data);
+
+        return image;
     }
 
     updateImageData(imgId: number, imageData: ImageUserData) {
@@ -67,15 +76,10 @@ export class ImageService {
             throw new Error('No image was found having the given id.');
         }
 
-        if (imageData.title.length === 0 ) {
-            throw new Error('The title of the image cannot be empty.');
-        }
-
-        console.log(this.data[imageIndex]);
-
-        this.data[imageIndex].updateImageData(imageData);
-
-        this.lsRepository.saveData(this.data);
+        if (ImageValidator.isImageDataValid(imageData)) {
+            this.data[imageIndex].updateImageData(imageData);
+            this.lsRepository.saveData(this.data);
+        } 
     }
 
     getImage(index: number): Image {

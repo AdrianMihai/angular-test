@@ -31,8 +31,21 @@ $angular-test-theme: mat-light-theme($angular-test-primary, $angular-test-accent
 html, body { height: 100%; }
 body { margin: 0; font-family: Corbel; }
 
+.custom-snackbar {
+    text-align: center;
+    color: white;
+}
+
+.snackbar-error {
+    background-color: mat-color($mat-red, 500);
+}
+.snackbar-success {
+    background-color: mat-color($mat-green, 500);
+}
+
 .gallery-dialog {
-    max-width: calc(100%  - 1em) !important;
+    min-width: 60%;
+    max-width: calc(100%  - 2rem) !important;
 }
 
 @media (min-width: 768px) {

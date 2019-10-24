@@ -1,6 +1,7 @@
 import { Inject, Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
+import { FormControl, Validators, FormGroup } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 export interface FormImageData {
     title: string;
@@ -20,6 +21,7 @@ export class ImageForm implements OnInit {
     
     constructor(
         public dialogRef: MatDialogRef<ImageForm>,
+        private _snackBar: MatSnackBar,
         @Inject(MAT_DIALOG_DATA) public data: FormImageData,
     ) {
         this.imageForm = new FormGroup({
@@ -46,6 +48,7 @@ export class ImageForm implements OnInit {
     }
 
     handleCloseClick(): void {
+        this._snackBar.dismiss();
         this.dialogRef.close();
     }
 
@@ -79,6 +82,16 @@ export class ImageForm implements OnInit {
 
         if (this.isFormValid()) {
             this.dialogRef.close(this.data);
+        }
+        else {
+            this._snackBar.open('The form is not yet completed.',
+                '',
+                {
+                    panelClass: ['custom-snackbar', 'snackbar-error'],
+                    duration: 7000
+
+                }
+            );
         }
     }
     
