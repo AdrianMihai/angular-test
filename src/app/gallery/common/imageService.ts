@@ -49,6 +49,7 @@ export class ImageService {
     addImage(image: Image): void {
 
         if (ImageValidator.isImageValid(image)) {
+            console.log(image);
             image.setId(this.getNextAvailableId());
             this.data.push(image);
 

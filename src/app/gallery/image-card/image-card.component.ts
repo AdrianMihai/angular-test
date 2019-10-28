@@ -28,14 +28,6 @@ export class ImageCard {
         this.imageDescription = new FormControl(data.description);
     }
 
-    ngDoCheck(): void {
-
-        // if (this.titleInput) {
-        //     this.titleInput.nativeElement.focus();
-        // };
-        
-    }
-
     getDescriptionText() {
         return this.data.description ? this.data.description : "No description was specified." 
     }
@@ -53,6 +45,7 @@ export class ImageCard {
 
         this._snackBar._openedSnackBarRef.afterDismissed().subscribe((result) => {
             if (result.dismissedByAction) {
+                console.log(deletedImage);
                 this.imageService.addImage(deletedImage);
             }
         });
@@ -71,11 +64,10 @@ export class ImageCard {
             this._snackBar.dismiss();
             this.toggleUpdateMode();
         } catch (e) {
-            this._snackBar.open(e.message,'',
+            this._snackBar.open(e.message, '',
                 {
                     panelClass: ['custom-snackbar', 'snackbar-error'],
                     duration: 7000
-
                 }
             );
         }
@@ -88,6 +80,12 @@ export class ImageCard {
 
     toggleUpdateMode() {
         this.isUpdateModeOn = !this.isUpdateModeOn;
+
+        setTimeout(() => {
+            if (this.isUpdateModeOn) {
+                this.titleInput.nativeElement.focus();
+            }
+        }, 0);
     }
 
 

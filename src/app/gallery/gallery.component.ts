@@ -25,6 +25,12 @@ export class GalleryComponent {
         console.log(imageService);
     }
 
+    ngDoCheck(): void {
+        //Called every time that the input properties of a component or a directive are checked. Use it to extend change detection by performing a custom check.
+        //Add 'implements DoCheck' to the class.
+        console.log(this.imageService);
+    }
+    
     openImageForm(): void {
         let image: FormImageData = {description: "", url: "", title:""};
 
