@@ -50,12 +50,20 @@ export class ImageService {
 
         if (ImageValidator.isImageValid(image)) {
             console.log(image);
+
             image.setId(this.getNextAvailableId());
             this.data.push(image);
 
-            this.lsRepository.saveData(this.data);
+            try {
+                this.lsRepository.saveData(this.data);
+            }
+            catch (e) {
+                this.deleteImage(image.id);
+                throw new Error("Couldn't add the image. There's not enough space in the local storage.")
+            }
+
         }
-        
+
     }
 
     deleteImage(imgId: number): Image {
@@ -73,14 +81,14 @@ export class ImageService {
     updateImageData(imgId: number, imageData: ImageUserData) {
         const imageIndex: number = this.findImageIndexById(imgId);
 
-        if (imageIndex === -1 ) {
+        if (imageIndex === -1) {
             throw new Error('No image was found having the given id.');
         }
 
         if (ImageValidator.isImageDataValid(imageData)) {
             this.data[imageIndex].updateImageData(imageData);
             this.lsRepository.saveData(this.data);
-        } 
+        }
     }
 
     getImage(index: number): Image {

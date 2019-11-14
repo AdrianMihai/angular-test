@@ -1,4 +1,4 @@
-import { Component, Inject, ViewChild, ElementRef, SimpleChanges, OnChanges } from "@angular/core";
+import { Component, Inject, ViewChild, ElementRef } from "@angular/core";
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Image, ImageUserData } from '../common/image.model';
 import { ImageService } from '../common/imageService';
@@ -16,7 +16,7 @@ export class ImageCard {
     private imageTitle: FormControl;
     private imageDescription: FormControl;
 
-    @ViewChild('titleInput', {static: false}) titleInput: ElementRef<HTMLElement>;
+    @ViewChild('titleInput', { static: false }) titleInput: ElementRef<HTMLElement>;
 
     constructor(
         public dialogRef: MatDialogRef<ImageCard>,
@@ -29,28 +29,31 @@ export class ImageCard {
     }
 
     getDescriptionText() {
-        return this.data.description ? this.data.description : "No description was specified." 
+        return this.data.description ? this.data.description : "No description was specified."
     }
 
     handleDeleteClick(imgId: number) {
         const deletedImage: Image = this.imageService.deleteImage(imgId);
 
-        this._snackBar.open('Image successfully deleted.', 'Undo',
-            {
-                panelClass: ['custom-snackbar', 'snackbar-success'],
-                duration: 10000
+        // const snackBarRef = this._snackBar.open('Image successfully deleted.', 'Undo',
+        //     {
+        //         panelClass: ['custom-snackbar', 'snackbar-success'],
+        //         duration: 10000
+        //     }
+        // );
 
-            }
-        );
+        // snackBarRef.afterDismissed().subscribe((result) => {
 
-        this._snackBar._openedSnackBarRef.afterDismissed().subscribe((result) => {
-            if (result.dismissedByAction) {
-                console.log(deletedImage);
-                this.imageService.addImage(deletedImage);
-            }
-        });
+        //     if (result.dismissedByAction) {
 
-        this.dialogRef.close();
+        //         const img: Image = new Image(deletedImage.title, deletedImage.description, deletedImage.url);
+        //         console.log(img);
+        //         this.imageService.addImage(img);
+
+        //     }
+        // });
+
+        this.dialogRef.close(deletedImage);
     }
 
     saveImageDataChanges() {
@@ -71,7 +74,7 @@ export class ImageCard {
                 }
             );
         }
-        
+
     }
 
     handleCloseClick() {
